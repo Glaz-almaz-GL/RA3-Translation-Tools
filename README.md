@@ -52,3 +52,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 *   [SadPencil.Ra2CsfFile](https://github.com/SadPencil/Ra2CsfFile) - Library for handling CSF files.
 *   [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet) - MVVM helpers and attributes.
 *   [FluentIcons.Avalonia](https://github.com/microsoft/fluentui-system-icons) - Icon library used by Huskui.
+
+## Discord Channel
+
+Join to my [discord channel](https://discord.gg/tzW856ewKm), here you can find translations into various languages ​​for RA3 modifications, as well as modding and translation tools and help with the game.
