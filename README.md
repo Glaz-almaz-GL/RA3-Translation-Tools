@@ -41,10 +41,6 @@ Alternatively, if you have the source code and .NET SDK installed:
 
 <img width="700" height="728" alt="Screenshot_1" src="https://github.com/user-attachments/assets/3ae8ffca-dc37-44bf-a06f-9e58b7aca844" />
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgements
 
 *   [Avalonia UI](https://avaloniaui.com/) - Cross-platform UI framework.
