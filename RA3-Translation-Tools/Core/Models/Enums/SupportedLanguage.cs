@@ -132,19 +132,19 @@ namespace RA3_Translation_Tools.Core.Models.Enums
     public static class SupportedLanguageExtensions
     {
         // Теперь возвращаем список LanguageItem
-        public static LanguageItem[] ItemsSource { get; } = GetLanguageItems();
+        public static List<LanguageItem> ItemsSource { get; } = [.. GetLanguageItems()];
 
-        private static LanguageItem[] GetLanguageItems()
+        private static IEnumerable<LanguageItem> GetLanguageItems()
         {
             SupportedLanguage[] values = System.Enum.GetValues<SupportedLanguage>();
             LanguageItem[] items = new LanguageItem[values.Length];
 
             for (int i = 0; i < values.Length; i++)
             {
-                items[i] = new LanguageItem(values[i], GetDescription(values[i]));
+                items[i] = new LanguageItem(values[i], values[i].ToString());
             }
 
-            return items;
+            return items.OrderBy(l => l.DisplayName);
         }
 
         private static string GetDescription(SupportedLanguage language)

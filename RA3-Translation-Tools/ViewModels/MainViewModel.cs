@@ -28,7 +28,7 @@ public partial class MainViewModel : ObservableObject, IDisposable
         _csfFileConverter = csfFileConverter;
     }
 
-    // === .big файлы ===
+    // === .big Files ===
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CanUnpackBig))]
     private string _inputBigFilePath = string.Empty;
@@ -45,7 +45,7 @@ public partial class MainViewModel : ObservableObject, IDisposable
     [NotifyPropertyChangedFor(nameof(CanUnpackBig))]
     private string _unpackDirectory = string.Empty;
 
-    // === Конвертация ===
+    // === Conversion ===
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CanConvertStrToCsf))]
     private string _inputStrFilePath = string.Empty;
@@ -62,7 +62,7 @@ public partial class MainViewModel : ObservableObject, IDisposable
     [NotifyPropertyChangedFor(nameof(CanConvertCsfToStr))]
     private string _outputStrFilePath = string.Empty;
 
-    // --- Новые свойства для CSF <-> JSON ---
+    // --- New Properties for CSF <-> JSON ---
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CanConvertCsfToJson))]
     private string _inputCsfToJsonFilePath = string.Empty;
@@ -82,7 +82,8 @@ public partial class MainViewModel : ObservableObject, IDisposable
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CanConvertJsonToCsf))]
     private SupportedLanguage _inputJsonToCsfLang = SupportedLanguage.Unknown;
-    // --- Конец новых свойств ---
+    // --- End of New Properties ---
+
     public bool CanUnpackBig =>
         !string.IsNullOrWhiteSpace(InputBigFilePath) &&
         !string.IsNullOrWhiteSpace(UnpackDirectory) &&
@@ -104,7 +105,7 @@ public partial class MainViewModel : ObservableObject, IDisposable
         !string.IsNullOrWhiteSpace(OutputStrFilePath) &&
         File.Exists(InputCsfFilePath);
 
-    // --- Новые свойства Can для CSF <-> JSON ---
+    // --- New Can Properties for CSF <-> JSON ---
     public bool CanConvertCsfToJson =>
         !string.IsNullOrWhiteSpace(InputCsfToJsonFilePath) &&
         !string.IsNullOrWhiteSpace(OutputJsonFilePath) &&
@@ -115,14 +116,14 @@ public partial class MainViewModel : ObservableObject, IDisposable
         !string.IsNullOrWhiteSpace(OutputCsfFromJsonFilePath) &&
         File.Exists(InputJsonToCsfFilePath) &&
         InputJsonToCsfLang != SupportedLanguage.Unknown;
-    // --- Конец новых свойств ---
+    // --- End of New Properties ---
 
-    // === Команды выбора файлов/папок ===
+    // === File/Folder Selection Commands ===
     [RelayCommand]
     private async Task SelectInputBigFile()
     {
         IStorageFile? path = await DialogsManager.OpenSingleFileDialogAsync(
-            "Выберите .big файл",
+            "Select .big file",
             ["*.big"]);
 
         if (path?.Path?.LocalPath is { } filePath)
@@ -139,7 +140,7 @@ public partial class MainViewModel : ObservableObject, IDisposable
             : $"{Path.GetFileNameWithoutExtension(PackedDirectory)}.big";
 
         IStorageFile? path = await DialogsManager.SaveFileDialogAsync(
-            "Сохранить как .big файл",
+            "Save as .big file",
             exampleFileName);
 
         if (path?.Path?.LocalPath is { } filePath)
@@ -151,7 +152,7 @@ public partial class MainViewModel : ObservableObject, IDisposable
     [RelayCommand]
     private async Task SelectUnpackDirectory()
     {
-        IStorageFolder? folder = await DialogsManager.OpenDirectoryDialogAsync("Выберите папку для распаковки .big файла");
+        IStorageFolder? folder = await DialogsManager.OpenDirectoryDialogAsync("Select folder to unpack .big file");
 
         if (folder?.Path?.LocalPath is { } path)
         {
@@ -162,7 +163,7 @@ public partial class MainViewModel : ObservableObject, IDisposable
     [RelayCommand]
     private async Task SelectPackedDirectory()
     {
-        IStorageFolder? folder = await DialogsManager.OpenDirectoryDialogAsync("Выберите папку с файлами для упаковки");
+        IStorageFolder? folder = await DialogsManager.OpenDirectoryDialogAsync("Select folder with files to pack");
 
         if (folder?.Path?.LocalPath is { } path)
         {
@@ -173,7 +174,7 @@ public partial class MainViewModel : ObservableObject, IDisposable
     [RelayCommand]
     private async Task SelectInputStrFile()
     {
-        IStorageFile? path = await DialogsManager.OpenSingleFileDialogAsync("Выберите .str файл", ["*.str"]);
+        IStorageFile? path = await DialogsManager.OpenSingleFileDialogAsync("Select .str file", ["*.str"]);
 
         if (path?.Path?.LocalPath is { } filePath)
         {
@@ -188,7 +189,7 @@ public partial class MainViewModel : ObservableObject, IDisposable
             ? "converted.csf"
             : $"{Path.GetFileNameWithoutExtension(InputStrFilePath)}.csf";
 
-        IStorageFile? path = await DialogsManager.SaveFileDialogAsync("Сохранить как .csf файл", exampleFileName);
+        IStorageFile? path = await DialogsManager.SaveFileDialogAsync("Save as .csf file", exampleFileName);
 
         if (path?.Path?.LocalPath is { } filePath)
         {
@@ -199,7 +200,7 @@ public partial class MainViewModel : ObservableObject, IDisposable
     [RelayCommand]
     private async Task SelectInputCsfFile()
     {
-        IStorageFile? path = await DialogsManager.OpenSingleFileDialogAsync("Выберите .csf файл", ["*.csf"]);
+        IStorageFile? path = await DialogsManager.OpenSingleFileDialogAsync("Select .csf file", ["*.csf"]);
 
         if (path?.Path?.LocalPath is { } filePath)
         {
@@ -214,7 +215,7 @@ public partial class MainViewModel : ObservableObject, IDisposable
             ? "converted.str"
             : $"{Path.GetFileNameWithoutExtension(InputCsfFilePath)}.str";
 
-        IStorageFile? path = await DialogsManager.SaveFileDialogAsync("Сохранить как .str файл", exampleFileName);
+        IStorageFile? path = await DialogsManager.SaveFileDialogAsync("Save as .str file", exampleFileName);
 
         if (path?.Path?.LocalPath is { } filePath)
         {
@@ -222,11 +223,11 @@ public partial class MainViewModel : ObservableObject, IDisposable
         }
     }
 
-    // --- Новые команды выбора файлов для CSF <-> JSON ---
+    // --- New File Selection Commands for CSF <-> JSON ---
     [RelayCommand]
     private async Task SelectInputCsfToJsonFile()
     {
-        IStorageFile? path = await DialogsManager.OpenSingleFileDialogAsync("Выберите .csf файл", ["*.csf"]);
+        IStorageFile? path = await DialogsManager.OpenSingleFileDialogAsync("Select .csf file", ["*.csf"]);
 
         if (path?.Path?.LocalPath is { } filePath)
         {
@@ -241,7 +242,7 @@ public partial class MainViewModel : ObservableObject, IDisposable
             ? "converted.json"
             : $"{Path.GetFileNameWithoutExtension(InputCsfToJsonFilePath)}.json";
 
-        IStorageFile? path = await DialogsManager.SaveFileDialogAsync("Сохранить как .json файл", exampleFileName);
+        IStorageFile? path = await DialogsManager.SaveFileDialogAsync("Save as .json file", exampleFileName);
 
         if (path?.Path?.LocalPath is { } filePath)
         {
@@ -252,7 +253,7 @@ public partial class MainViewModel : ObservableObject, IDisposable
     [RelayCommand]
     private async Task SelectInputJsonToCsfFile()
     {
-        IStorageFile? path = await DialogsManager.OpenSingleFileDialogAsync("Выберите .json файл", ["*.json"]);
+        IStorageFile? path = await DialogsManager.OpenSingleFileDialogAsync("Select .json file", ["*.json"]);
 
         if (path?.Path?.LocalPath is { } filePath)
         {
@@ -267,16 +268,16 @@ public partial class MainViewModel : ObservableObject, IDisposable
             ? "converted.csf"
             : $"{Path.GetFileNameWithoutExtension(InputJsonToCsfFilePath)}.csf";
 
-        IStorageFile? path = await DialogsManager.SaveFileDialogAsync("Сохранить как .csf файл", exampleFileName);
+        IStorageFile? path = await DialogsManager.SaveFileDialogAsync("Save as .csf file", exampleFileName);
 
         if (path?.Path?.LocalPath is { } filePath)
         {
             OutputCsfFromJsonFilePath = filePath;
         }
     }
-    // --- Конец новых команд ---
+    // --- End of New Commands ---
 
-    // === Основные команды ===
+    // === Main Commands ===
     [RelayCommand]
     private void UnpackBigFile()
     {
@@ -289,11 +290,11 @@ public partial class MainViewModel : ObservableObject, IDisposable
         {
             Directory.CreateDirectory(UnpackDirectory);
             BigFileHelper.UnpackBig(InputBigFilePath, UnpackDirectory);
-            GrowlsManager.ShowSuccesMsg($"Файл {Path.GetFileName(InputBigFilePath)} успешно распакован!");
+            GrowlsManager.ShowSuccesMsg($"File {Path.GetFileName(InputBigFilePath)} successfully unpacked!");
         }
         catch (Exception ex)
         {
-            GrowlsManager.ShowErrorMsg(ex, "Не удалось распаковать .big файл");
+            GrowlsManager.ShowErrorMsg(ex, "Failed to unpack .big file");
         }
     }
 
@@ -311,11 +312,11 @@ public partial class MainViewModel : ObservableObject, IDisposable
             Directory.CreateDirectory(outputDir);
 
             BigFileHelper.PackBig(PackedDirectory, OutputBigFilePath);
-            GrowlsManager.ShowSuccesMsg($"Директория {Path.GetDirectoryName(PackedDirectory)} успешно запакована в файл {Path.GetFileName(OutputBigFilePath)}!");
+            GrowlsManager.ShowSuccesMsg($"Directory {Path.GetDirectoryName(PackedDirectory)} successfully packed into file {Path.GetFileName(OutputBigFilePath)}!");
         }
         catch (Exception ex)
         {
-            GrowlsManager.ShowErrorMsg(ex, "Не удалось запаковать .big файл");
+            GrowlsManager.ShowErrorMsg(ex, "Failed to pack .big file");
         }
     }
 
@@ -334,16 +335,16 @@ public partial class MainViewModel : ObservableObject, IDisposable
 
             if (csf == null)
             {
-                GrowlsManager.ShowErrorMsg("Итоговый CSF файл пуст.");
+                GrowlsManager.ShowErrorMsg("The resulting CSF file is empty.");
                 return;
             }
 
             await _fileService.WriteCsfFileAsync(OutputCsfFilePath, csf);
-            GrowlsManager.ShowSuccesMsg(".str → .csf: конвертация завершена");
+            GrowlsManager.ShowSuccesMsg(".str → .csf: conversion completed");
         }
         catch (Exception ex)
         {
-            GrowlsManager.ShowErrorMsg(ex, "Не удалось конвертировать .str в .csf");
+            GrowlsManager.ShowErrorMsg(ex, "Failed to convert .str to .csf");
         }
     }
 
@@ -360,15 +361,15 @@ public partial class MainViewModel : ObservableObject, IDisposable
             CsfFile csf = await _fileService.ReadCsfFileAsync(InputCsfFilePath);
             string? strText = _csfFileConverter.ConvertCsfToStr(csf);
             await File.WriteAllTextAsync(OutputStrFilePath, strText);
-            GrowlsManager.ShowSuccesMsg(".csf → .str: конвертация завершена");
+            GrowlsManager.ShowSuccesMsg(".csf → .str: conversion completed");
         }
         catch (Exception ex)
         {
-            GrowlsManager.ShowErrorMsg(ex, "Не удалось конвертировать .csf в .str");
+            GrowlsManager.ShowErrorMsg(ex, "Failed to convert .csf to .str");
         }
     }
 
-    // --- Новые команды конвертации CSF <-> JSON ---
+    // --- New CSF <-> JSON Conversion Commands ---
     [RelayCommand]
     private async Task ConvertCsfToJson()
     {
@@ -386,11 +387,11 @@ public partial class MainViewModel : ObservableObject, IDisposable
             {
                 await _fileService.WriteFileAsync(OutputJsonFilePath, json);
             }
-            GrowlsManager.ShowSuccesMsg(".csf → .json: конвертация завершена");
+            GrowlsManager.ShowSuccesMsg(".csf → .json: conversion completed");
         }
         catch (Exception ex)
         {
-            GrowlsManager.ShowErrorMsg(ex, "Не удалось конвертировать .csf в .json");
+            GrowlsManager.ShowErrorMsg(ex, "Failed to convert .csf to .json");
         }
     }
 
@@ -404,25 +405,25 @@ public partial class MainViewModel : ObservableObject, IDisposable
 
         try
         {
-            // --- ПРАВИЛЬНО: Читаем содержимое файла ---
+            // --- CORRECT: Read file content ---
             string[] jsonContent = await File.ReadAllLinesAsync(InputJsonToCsfFilePath);
 
-            // --- ПРАВИЛЬНО: Передаем содержимое и язык ---
+            // --- CORRECT: Pass content and language ---
             CsfFile? csf = _csfFileConverter.ConvertJsonToCsf(jsonContent, InputJsonToCsfLang);
 
             if (csf != null)
             {
                 await _fileService.WriteCsfFileAsync(OutputCsfFromJsonFilePath, csf);
-                GrowlsManager.ShowSuccesMsg(".json → .csf: конвертация завершена");
+                GrowlsManager.ShowSuccesMsg(".json → .csf: conversion completed");
             }
             else
             {
-                GrowlsManager.ShowErrorMsg("Не удалось создать CSF-файл из JSON.");
+                GrowlsManager.ShowErrorMsg("Failed to create CSF file from JSON.");
             }
         }
         catch (Exception ex)
         {
-            GrowlsManager.ShowErrorMsg(ex, "Не удалось конвертировать .json в .csf");
+            GrowlsManager.ShowErrorMsg(ex, "Failed to convert .json to .csf");
         }
     }
 

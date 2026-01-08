@@ -7,15 +7,9 @@ using System.Threading.Tasks;
 
 namespace RA3_Translation_Tools.Core.Models
 {
-    public class LanguageItem
+    public class LanguageItem(SupportedLanguage language, string displayName)
     {
-        public SupportedLanguage Language { get; set; }
-        public string DisplayName { get; set; }
-
-        public LanguageItem(SupportedLanguage language, string displayName)
-        {
-            Language = language;
-            DisplayName = displayName;
-        }
+        public SupportedLanguage Language { get; set; } = language;
+        public string DisplayName { get; set; } = displayName;
     }
 }

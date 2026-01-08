@@ -7,7 +7,12 @@
     <Nullable>enable</Nullable>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Command &amp; Conquer - Red Alert 3_3.ico</ApplicationIcon>
+    <AssemblyName></AssemblyName>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Command &amp; Conquer - Red Alert 3_3.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Avalonia.Desktop" Version="11.3.10" />

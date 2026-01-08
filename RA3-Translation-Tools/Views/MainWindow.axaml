@@ -7,7 +7,6 @@
 				xmlns:views="clr-namespace:RA3_Translation_Tools.Views"
 				mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 				x:Class="RA3_Translation_Tools.Views.MainWindow"
-				Icon="/Assets/avalonia-logo.ico"
 				Title="RA3_Translation_Tools">
 	<views:MainView />
 </husk:AppWindow>
