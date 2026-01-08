@@ -1,6 +1,6 @@
 # RA3 Translation Tools
 
-A cross-platform desktop application built with Avalonia UI, designed to assist in translating and converting files for Red Alert 3 (RA3) modding. It provides tools for packing/unpacking `.big` archives and converting between `.str`, `.csf`, and `.json` file formats commonly used for text localization.
+A cross-platform desktop application built with Avalonia UI, designed to assist in translating and converting files for Red Alert 3 (RA3) modding, but this program can be used for other C&C games whose release date is later than or equal to 2000, for example, Red Alert 2. It provides tools for packing/unpacking `.big` archives and converting between `.str`, `.csf`, and `.json` file formats commonly used for text localization.
 
 ## Features
 
