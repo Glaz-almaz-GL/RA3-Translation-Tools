@@ -21,7 +21,7 @@ A cross-platform desktop application built with Avalonia UI, designed to assist 
 
 ## Installation
 
-1.  Download the latest release from the [Releases](https://github.com/your-username/your-repo-name/releases) page (if available).
+1.  Download the latest release from the [Releases](https://github.com/Glaz-almaz-GL/RA3-Translation-Tools/releases) page (if available).
 2.  Extract the downloaded archive to a folder of your choice.
 3.  Run the executable file (`RA3-Translation-Tools.exe` on Windows, or the appropriate executable for your platform).
 
