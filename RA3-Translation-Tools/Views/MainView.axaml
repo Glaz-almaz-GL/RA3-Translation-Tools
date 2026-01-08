@@ -1,0 +1,308 @@
+﻿<husk:Page xmlns="https://github.com/avaloniaui"
+		   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		   xmlns:enums="using:RA3_Translation_Tools.Core.Models.Enums"
+		   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		   xmlns:models="using:RA3_Translation_Tools.Core.Models"
+		   xmlns:fi="clr-namespace:FluentIcons.Avalonia;assembly=FluentIcons.Avalonia"
+		   xmlns:vm="clr-namespace:RA3_Translation_Tools.ViewModels"
+		   mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		   x:Class="RA3_Translation_Tools.Views.MainView"
+		   xmlns:husk="https://github.com/d3ara1n/Huskui.Avalonia"
+		   x:DataType="vm:MainViewModel"
+		   IsBackButtonVisible="False">
+
+	<husk:Page.Resources>
+		<CrossFade x:Key="PageTransition" Duration="0:0:0.3" />
+	</husk:Page.Resources>
+
+	<DockPanel Margin="24,0,24,0">
+		<!-- Заголовок -->
+		<TextBlock
+		Margin="0,0,0,24"
+		DockPanel.Dock="Top"
+		FontSize="{StaticResource LargeFontSize}"
+		FontWeight="{StaticResource ControlStrongFontWeight}"
+		Text="Инструменты" />
+
+		<ScrollViewer DockPanel.Dock="Bottom">
+			<StackPanel Spacing="20">
+				<!-- Unpack Big -->
+				<husk:Card>
+					<StackPanel Margin="20" Spacing="16">
+						<StackPanel Orientation="Horizontal" Spacing="12" Margin="0,0,0,8">
+							<fi:SymbolIcon Symbol="ArchiveArrowBack" FontSize="20" Foreground="{StaticResource ControlAccentInteractiveBackgroundBrush}" />
+							<TextBlock FontSize="{StaticResource MediumFontSize}" FontWeight="{StaticResource ControlStrongFontWeight}" Text="Распаковать .big" />
+						</StackPanel>
+
+						<Grid ColumnDefinitions="*,Auto" ColumnSpacing="12" RowDefinitions="Auto,Auto" RowSpacing="12">
+							<!-- Input .big -->
+							<TextBox
+							Grid.Row="0"
+							Grid.Column="0"
+							Watermark="Путь к исходному .big файлу"
+							Text="{Binding InputBigFilePath}" />
+							<Button
+							Grid.Row="0"
+							Grid.Column="1"
+							Classes="Primary"
+							Content="Обзор"
+							Theme="{StaticResource OutlineButtonTheme}"
+							Command="{Binding SelectInputBigFileCommand}" />
+
+							<!-- Output directory -->
+							<TextBox
+							Grid.Row="1"
+							Grid.Column="0"
+							Watermark="Папка для распаковки"
+							Text="{Binding UnpackDirectory}" />
+							<Button
+							Grid.Row="1"
+							Grid.Column="1"
+							Classes="Primary"
+							Content="Обзор"
+							Theme="{StaticResource OutlineButtonTheme}"
+							Command="{Binding SelectUnpackDirectoryCommand}" />
+						</Grid>
+
+						<Button
+						HorizontalAlignment="Left"
+						Content="Распаковать"
+						Classes="Primary"
+						Command="{Binding UnpackBigFileCommand}"
+						IsEnabled="{Binding CanUnpackBig}" />
+					</StackPanel>
+				</husk:Card>
+
+				<!-- Pack Big -->
+				<husk:Card>
+					<StackPanel Margin="20" Spacing="16">
+						<StackPanel Orientation="Horizontal" Spacing="12" Margin="0,0,0,8">
+							<fi:SymbolIcon Symbol="Archive" FontSize="20" Foreground="{StaticResource ControlAccentInteractiveBackgroundBrush}" />
+							<TextBlock FontSize="{StaticResource MediumFontSize}" FontWeight="{StaticResource ControlStrongFontWeight}" Text="Запаковать в .big" />
+						</StackPanel>
+
+						<Grid ColumnDefinitions="*,Auto" ColumnSpacing="12" RowDefinitions="Auto,Auto" RowSpacing="12">
+							<!-- Source directory -->
+							<TextBox
+							Grid.Row="0"
+							Grid.Column="0"
+
+							Watermark="Папка с файлами для упаковки"
+							Text="{Binding PackedDirectory}" />
+							<Button
+							Grid.Row="0"
+							Grid.Column="1"
+							Classes="Primary"
+							Content="Обзор"
+							Theme="{StaticResource OutlineButtonTheme}"
+							Command="{Binding SelectPackedDirectoryCommand}" />
+
+							<!-- Output .big -->
+							<TextBox
+							Grid.Row="1"
+							Grid.Column="0"
+							Watermark="Путь к итоговому .big файлу"
+							Text="{Binding OutputBigFilePath}" />
+							<Button
+							Grid.Row="1"
+							Grid.Column="1"
+							Classes="Primary"
+							Content="Обзор"
+							Theme="{StaticResource OutlineButtonTheme}"
+							Command="{Binding SelectOutputBigFileCommand}" />
+						</Grid>
+
+						<Button
+						HorizontalAlignment="Left"
+						Content="Запаковать"
+						Classes="Primary"
+						Command="{Binding PackBigFileCommand}"
+						IsEnabled="{Binding CanPackBig}" />
+					</StackPanel>
+				</husk:Card>
+
+				<!-- Convert STR ↔ CSF -->
+				<husk:Card>
+					<StackPanel Margin="20" Spacing="16">
+						<StackPanel Orientation="Horizontal" Spacing="12" Margin="0,0,0,8">
+							<fi:SymbolIcon Symbol="ConvertRange" FontSize="20" Foreground="{StaticResource ControlAccentInteractiveBackgroundBrush}" />
+							<TextBlock FontSize="{StaticResource MediumFontSize}" FontWeight="{StaticResource ControlStrongFontWeight}" Text="Конвертация форматов" />
+						</StackPanel>
+
+						<!-- Convert .str → .csf -->
+						<Grid ColumnDefinitions="*,Auto" ColumnSpacing="12" RowDefinitions="Auto,Auto" RowSpacing="12">
+							<TextBox
+							Grid.Row="0"
+							Grid.Column="0"
+
+							Watermark="Исходный .str файл"
+							Text="{Binding InputStrFilePath}" />
+							<Button
+							Grid.Row="0"
+							Grid.Column="1"
+							Classes="Primary"
+							Content="Обзор"
+							Theme="{StaticResource OutlineButtonTheme}"
+							Command="{Binding SelectInputStrFileCommand}" />
+
+							<TextBox
+							Grid.Row="1"
+							Grid.Column="0"
+							Watermark="Выходной .csf файл"
+							Text="{Binding OutputCsfFilePath}" />
+							<Button
+							Grid.Row="1"
+							Grid.Column="1"
+							Classes="Primary"
+							Content="Обзор"
+							Theme="{StaticResource OutlineButtonTheme}"
+							Command="{Binding SelectOutputCsfFileCommand}" />
+						</Grid>
+
+						<Button
+						Content=".str → .csf"
+						Classes="Primary"
+						Command="{Binding ConvertStrToCsfCommand}"
+						HorizontalAlignment="Left"
+						IsEnabled="{Binding CanConvertStrToCsf}" />
+
+						<!-- Convert .csf → .str -->
+						<Grid ColumnDefinitions="*,Auto" ColumnSpacing="12" RowDefinitions="Auto,Auto" Margin="0,12,0,0" RowSpacing="12">
+							<TextBox
+							Grid.Row="0"
+							Grid.Column="0"
+
+							Watermark="Исходный .csf файл"
+							Text="{Binding InputCsfFilePath}" />
+							<Button
+							Grid.Row="0"
+							Grid.Column="1"
+							Classes="Primary"
+							Content="Обзор"
+							Theme="{StaticResource OutlineButtonTheme}"
+							Command="{Binding SelectInputCsfFileCommand}" />
+
+							<TextBox
+							Grid.Row="1"
+							Grid.Column="0"
+
+							Watermark="Выходной .str файл"
+							Text="{Binding OutputStrFilePath}" />
+							<Button
+							Grid.Row="1"
+							Grid.Column="1"
+							Classes="Primary"
+							Content="Обзор"
+							Theme="{StaticResource OutlineButtonTheme}"
+							Command="{Binding SelectOutputStrFileCommand}" />
+						</Grid>
+
+						<Button
+						Content=".csf → .str"
+						Classes="Primary"
+						Command="{Binding ConvertCsfToStrCommand}"
+						HorizontalAlignment="Left"
+						IsEnabled="{Binding CanConvertCsfToStr}" />
+					</StackPanel>
+				</husk:Card>
+
+				<!-- Convert CSF ↔ JSON -->
+				<husk:Card>
+					<StackPanel Margin="20" Spacing="16">
+						<StackPanel Orientation="Horizontal" Spacing="12" Margin="0,0,0,8">
+							<fi:SymbolIcon Symbol="Code" FontSize="20" Foreground="{StaticResource ControlAccentInteractiveBackgroundBrush}" />
+							<TextBlock FontSize="{StaticResource MediumFontSize}" FontWeight="{StaticResource ControlStrongFontWeight}" Text="Конвертация CSF ↔ JSON" />
+						</StackPanel>
+
+						<!-- Convert .csf → .json -->
+						<Grid ColumnDefinitions="*,Auto" ColumnSpacing="12" RowDefinitions="Auto,Auto" RowSpacing="12">
+							<TextBox
+							Grid.Row="0"
+							Grid.Column="0"
+							Watermark="Исходный .csf файл"
+							Text="{Binding InputCsfToJsonFilePath}" />
+							<Button
+							Grid.Row="0"
+							Grid.Column="1"
+							Classes="Primary"
+							Content="Обзор"
+							Theme="{StaticResource OutlineButtonTheme}"
+							Command="{Binding SelectInputCsfToJsonFileCommand}" />
+
+							<TextBox
+							Grid.Row="1"
+							Grid.Column="0"
+							Watermark="Выходной .json файл"
+							Text="{Binding OutputJsonFilePath}" />
+							<Button
+							Grid.Row="1"
+							Grid.Column="1"
+							Classes="Primary"
+							Content="Обзор"
+							Theme="{StaticResource OutlineButtonTheme}"
+							Command="{Binding SelectOutputJsonFileCommand}" />
+						</Grid>
+
+						<Button
+						Content=".csf → .json"
+						Classes="Primary"
+						Command="{Binding ConvertCsfToJsonCommand}"
+						HorizontalAlignment="Left"
+						IsEnabled="{Binding CanConvertCsfToJson}" />
+
+						<!-- Convert .json → .csf -->
+						<Grid ColumnDefinitions="*,Auto" ColumnSpacing="12" RowDefinitions="Auto,Auto,Auto" Margin="0,12,0,0" RowSpacing="12">
+							<TextBox
+							Grid.Row="0"
+							Grid.Column="0"
+							Watermark="Исходный .json файл"
+							Text="{Binding InputJsonToCsfFilePath}" />
+							<Button
+							Grid.Row="0"
+							Grid.Column="1"
+							Classes="Primary"
+							Content="Обзор"
+							Theme="{StaticResource OutlineButtonTheme}"
+							Command="{Binding SelectInputJsonToCsfFileCommand}" />
+
+							<TextBox
+							Grid.Row="1"
+							Grid.Column="0"
+							Watermark="Выходной .csf файл"
+							Text="{Binding OutputCsfFromJsonFilePath}" />
+							<Button
+							Grid.Row="1"
+							Grid.Column="1"
+							Classes="Primary"
+							Content="Обзор"
+							Theme="{StaticResource OutlineButtonTheme}"
+							Command="{Binding SelectOutputCsfFromJsonFileCommand}" />
+
+							<ComboBox
+							Grid.Row="2"
+							Grid.Column="0"
+							ItemsSource="{x:Static enums:SupportedLanguageExtensions.ItemsSource}"
+							SelectedItem="{Binding InputJsonToCsfLang, Mode=TwoWay}"
+							PlaceholderText="Выберите язык для .csf файла">
+								<ComboBox.ItemTemplate>
+									<DataTemplate x:DataType="models:LanguageItem">
+										<!-- Привязываем TextBlock к свойству DisplayName объекта LanguageItem -->
+										<TextBlock Text="{Binding DisplayName}" />
+									</DataTemplate>
+								</ComboBox.ItemTemplate>
+							</ComboBox>
+						</Grid>
+
+						<Button
+						Content=".json → .csf"
+						Classes="Primary"
+						Command="{Binding ConvertJsonToCsfCommand}"
+						HorizontalAlignment="Left"
+						IsEnabled="{Binding CanConvertJsonToCsf}" />
+					</StackPanel>
+				</husk:Card>
+			</StackPanel>
+		</ScrollViewer>
+	</DockPanel>
+</husk:Page>

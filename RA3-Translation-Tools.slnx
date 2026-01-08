@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="RA3-Translation-Tools.Browser/RA3-Translation-Tools.Browser.csproj" />
+  <Project Path="RA3-Translation-Tools.Desktop/RA3-Translation-Tools.Desktop.csproj" />
+  <Project Path="RA3-Translation-Tools/RA3-Translation-Tools.csproj" />
+</Solution>
